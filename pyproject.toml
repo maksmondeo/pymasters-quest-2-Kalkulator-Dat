@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "generator-hasel"
+version = "0.1.0"
+description = "Konsolowy generator bezpiecznych haseł w Pythonie"
+authors = ["Maksymilian Wasilewski <maks.wazne@gmail.com>"]
+readme = "README.md"
+packages = [{ include = "generator_hasel" }]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.scripts]
+generator-hasel = "generator_hasel.main:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "D104",
+    "D100",
+    "D103",
+    "D211",
+    "D213",
+    "D101",
+    "D102",
+    "D105",
+    "D106",
+    "D107",
+    "D203",
+    "ISC001",
+    "COM812",
+    "T201",
+    "FBT001",
+    "E501",
+]
