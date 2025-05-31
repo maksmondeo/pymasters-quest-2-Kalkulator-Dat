@@ -138,7 +138,7 @@ def main() -> None:
             )
 
         case 6:
-            print("\nDziękuję za skorzystanie z Generatora Haseł!\n")
+            print("\nDziękuję za skorzystanie z Kalkluatora dat!\n")
             sys.exit()
 
     input("\nNaciśnij aby kontynuować...")
