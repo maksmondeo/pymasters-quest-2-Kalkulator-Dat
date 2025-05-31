@@ -1,6 +1,6 @@
-import contextlib
 import sys
 from calendar import weekday
+from contextlib import suppress
 from datetime import datetime, timedelta, timezone
 
 
@@ -133,7 +133,7 @@ def main() -> None:
         )
         choice = input("Wybierz opcję (1-6): ")
 
-        with contextlib.suppress(ValueError):
+        with suppress(ValueError):
             choice = int(choice)
 
         if not isinstance(choice, int) or choice not in range(1, 7):
@@ -152,7 +152,6 @@ def main() -> None:
             age_calc()
         case 5:
             weekday_check()
-
         case 6:
             print("\nDziękuję za skorzystanie z Kalkluatora dat!\n")
             sys.exit()
