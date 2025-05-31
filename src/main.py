@@ -69,6 +69,9 @@ def main() -> None:
                 )
             except ValueError:
                 print("\nPodano nieprawidłowe daty!")
+        case 4:
+            print("\nDziękuję za skorzystanie z Generatora Haseł!\n")
+            sys.exit()
 
     input("\nNaciśnij aby kontynuować...")
     main()
