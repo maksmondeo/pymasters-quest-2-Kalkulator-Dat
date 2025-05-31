@@ -1,5 +1,5 @@
 import contextlib
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 
 def main() -> None:
@@ -23,14 +23,31 @@ def main() -> None:
             date2 = input("Podaj drugą datę (DD/MM/YYYY): ")
 
             try:
-                date1time = datetime.strptime(date1, "%d/%m/%Y").astimezone(
+                date1_time = datetime.strptime(date1, "%d/%m/%Y").astimezone(
                     timezone.utc
                 )
-                date2time = datetime.strptime(date2, "%d/%m/%Y").astimezone(
+                date2_time = datetime.strptime(date2, "%d/%m/%Y").astimezone(
                     timezone.utc
                 )
                 print(
-                    f"\nRóżnica : {abs(date1time - date2time).days} dni\n(od {date1} do {date2})"
+                    f"\nRóżnica : {abs(date1_time - date2_time).days} dni\n(od {date1} do {date2})"
+                )
+            except ValueError:
+                print("\nPodano nieprawidłowe daty!")
+
+        case 2:
+            date1 = input("\nPodaj datę (DD/MM/YYYY): ")
+            days = input("\nPodaj ilość dni do dodania: ")
+
+            try:
+                date1_time = datetime.strptime(date1, "%d/%m/%Y").astimezone(
+                    timezone.utc
+                )
+                new_date = date1_time + timedelta(days=int(days))
+                formatted_date = new_date.strftime("%d/%m/%Y")
+
+                print(
+                    f"\nData po dodaniu dni: {formatted_date}\n({days} dni po {date1})"
                 )
             except ValueError:
                 print("\nPodano nieprawidłowe daty!")
