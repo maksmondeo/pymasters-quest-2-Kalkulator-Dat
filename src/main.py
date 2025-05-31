@@ -1,5 +1,6 @@
 import contextlib
 import sys
+from calendar import weekday
 from datetime import datetime, timedelta, timezone
 
 
@@ -24,7 +25,7 @@ def main() -> None:
         with contextlib.suppress(ValueError):
             choice = int(choice)
 
-        if not isinstance(choice, int) or choice not in range(1, 5):
+        if not isinstance(choice, int) or choice not in range(1, 7):
             print("\nNieprawidłowy wybór! Spróbuj ponownie.\n")
         else:
             break
@@ -119,6 +120,22 @@ def main() -> None:
                 print(f"\nTwój wiek: {age_years}{age_months}{age_days}")
             except ValueError:
                 print("\nPodano nieprawidłową datę!")
+
+        case 5:
+            date_today = datetime.now(tz=timezone.utc)
+            days = {
+                0: "Poniedziałek",
+                1: "Wtorek",
+                2: "Środa",
+                3: "Czwartek",
+                4: "Piątek",
+                5: "Sobota",
+                6: "Niedziela",
+            }
+
+            print(
+                f"\nDziś jest: {days[weekday(date_today.year, date_today.month, date_today.day)]}"
+            )
 
         case 6:
             print("\nDziękuję za skorzystanie z Generatora Haseł!\n")
