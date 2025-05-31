@@ -3,6 +3,17 @@ import sys
 from datetime import datetime, timedelta, timezone
 
 
+def parse_date(date_str: str) -> datetime:
+    formats = ["%d/%m/%Y", "%Y-%m-%d", "%d.%m.%Y", "%d-%m-%Y"]
+    for fmt in formats:
+        try:
+            return datetime.strptime(date_str, fmt).astimezone(timezone.utc)
+        except ValueError:  # noqa: PERF203
+            continue
+    msg = "Nieprawidłowy format daty!"
+    raise ValueError(msg)
+
+
 def main() -> None:
     while True:
         print(
@@ -24,12 +35,8 @@ def main() -> None:
             date2 = input("Podaj drugą datę (DD/MM/YYYY): ")
 
             try:
-                date1_time = datetime.strptime(date1, "%d/%m/%Y").astimezone(
-                    timezone.utc
-                )
-                date2_time = datetime.strptime(date2, "%d/%m/%Y").astimezone(
-                    timezone.utc
-                )
+                date1_time = parse_date(date1)
+                date2_time = parse_date(date2)
                 print(
                     f"\nRóżnica : {abs(date1_time - date2_time).days} dni\n(od {date1} do {date2})"
                 )
@@ -41,9 +48,7 @@ def main() -> None:
             days = input("\nPodaj ilość dni do dodania: ")
 
             try:
-                date1_time = datetime.strptime(date1, "%d/%m/%Y").astimezone(
-                    timezone.utc
-                )
+                date1_time = parse_date(date1)
                 new_date = date1_time + timedelta(days=int(days))
                 formatted_date = new_date.strftime("%d/%m/%Y")
 
@@ -58,9 +63,7 @@ def main() -> None:
             days = input("\nPodaj ilość dni do odjęcia: ")
 
             try:
-                date1_time = datetime.strptime(date1, "%d/%m/%Y").astimezone(
-                    timezone.utc
-                )
+                date1_time = parse_date(date1)
                 new_date = date1_time - timedelta(days=int(days))
                 formatted_date = new_date.strftime("%d/%m/%Y")
 
