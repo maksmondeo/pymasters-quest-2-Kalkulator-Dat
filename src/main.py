@@ -17,9 +17,9 @@ def parse_date(date_str: str) -> datetime:
 def main() -> None:
     while True:
         print(
-            "\nWybierz opcję:\n1. Oblicz różnicę między datami\n2. Dodaj dni do daty\n3. Odejmij dni od daty\n4. Zakończ program\n"
+            "\nWybierz opcję:\n1. Oblicz różnicę między datami\n2. Dodaj dni do daty\n3. Odejmij dni od daty\n4. Oblicz wiek\n5. Sprawdź dzień tygodnia\n6. Zakończ program\n"
         )
-        choice = input("Wybierz opcję (1-4): ")
+        choice = input("Wybierz opcję (1-6): ")
 
         with contextlib.suppress(ValueError):
             choice = int(choice)
@@ -31,8 +31,8 @@ def main() -> None:
 
     match choice:
         case 1:
-            date1 = input("\nPodaj pierwszą datę (DD/MM/YYYY): ")
-            date2 = input("Podaj drugą datę (DD/MM/YYYY): ")
+            date1 = input("\nPodaj pierwszą datę (różne formaty akceptowane): ")
+            date2 = input("Podaj drugą datę (różne formaty akceptowane): ")
 
             try:
                 date1_time = parse_date(date1)
@@ -44,7 +44,7 @@ def main() -> None:
                 print("\nPodano nieprawidłowe daty!")
 
         case 2:
-            date1 = input("\nPodaj datę (DD/MM/YYYY): ")
+            date1 = input("\nPodaj datę (różne formaty akceptowane): ")
             days = input("\nPodaj ilość dni do dodania: ")
 
             try:
@@ -59,7 +59,7 @@ def main() -> None:
                 print("\nPodano nieprawidłowe daty!")
 
         case 3:
-            date1 = input("\nPodaj datę (DD/MM/YYYY): ")
+            date1 = input("\nPodaj datę (różne formaty akceptowane): ")
             days = input("\nPodaj ilość dni do odjęcia: ")
 
             try:
@@ -73,6 +73,54 @@ def main() -> None:
             except ValueError:
                 print("\nPodano nieprawidłowe daty!")
         case 4:
+            try:
+                date_today = datetime.now(tz=timezone.utc)
+                date1 = ""
+
+                while True:
+                    date1 = input(
+                        "\nPodaj datę urodzenia (różne formaty akceptowane): "
+                    )
+                    date1 = parse_date(date1)
+                    if date_today < date1:
+                        print("\nNie podano przeszłej daty.")
+                    else:
+                        break
+
+                age_years = date_today.year - date1.year
+                age_months = date_today.month - date1.month
+                age_days = date_today.day - date1.day
+
+                if not age_years:
+                    age_years = ""
+                elif age_years == 1:
+                    age_years = "1 rok "
+                elif 2 <= age_years % 10 <= 4 and not (12 <= age_years % 100 <= 14):  # noqa: PLR2004
+                    age_years = f"{age_years} lata "
+                else:
+                    age_years = f"{age_years} lat "
+
+                if not age_months:
+                    age_months = ""
+                elif age_months == 1:
+                    age_months = "1 miesiąc "
+                elif age_months in [2, 3, 4]:
+                    age_months = f"{age_months} miesiące "
+                else:
+                    age_months = f"{age_months} miesięcy "
+
+                if not age_days:
+                    age_days = ""
+                elif age_days == 1:
+                    age_days = "1 dzień "
+                else:
+                    age_days = f"{age_days} dni "
+
+                print(f"\nTwój wiek: {age_years}{age_months}{age_days}")
+            except ValueError:
+                print("\nPodano nieprawidłową datę!")
+
+        case 6:
             print("\nDziękuję za skorzystanie z Generatora Haseł!\n")
             sys.exit()
 
