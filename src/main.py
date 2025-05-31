@@ -13,7 +13,7 @@ def main() -> None:
         with contextlib.suppress(ValueError):
             choice = int(choice)
 
-        if not isinstance(choice, int):
+        if not isinstance(choice, int) or choice not in range(1, 5):
             print("\nNieprawidłowy wybór! Spróbuj ponownie.\n")
         else:
             break
